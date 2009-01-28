@@ -1,0 +1,24 @@
+[Changes for 0.43 - 2008-06-21]
+
+* Properly documented the language extensions we use in the .cabal file.
+
+* No longer compiles with -O2 as Cabal automatically adds -O anyway.
+
+[Changes for 0.41 - 2008-02-19]
+
+* Update the ByteString function calls for the ByteStrings packaged
+  with GHC 6.8.2 (and up).
+  Improve Cabal metadata.
+  Contributed by: Gwern Branwen
+
+[Changes for 0.4 - 2007-06-16]
+
+* Add Haddock documentations; no functional changes.
+  Contributed by: Jaap Weel
+
+[Changes for 0.3 - 2007-05-21]
+
+* First working Hackage release: Unbreak the build by adding
+  missing extra-source-files.
+  Requested by: Bryan O'Sullivan
+
