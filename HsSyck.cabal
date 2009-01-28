@@ -13,6 +13,7 @@ Description:         This is a simple YAML ('Yet Another Markup Language') proce
 -- License is really "MIT", but Cabal doesn't have that constant yet
 License:             BSD3
 License-File:        LICENSE
+Homepage:            http://github.com/audreyt/HsSyck
 Author:              Audrey Tang
 Maintainer:          audreyt@audreyt.org
 Copyright:           Audrey Tang, Gaal Yahas, 2005-2009
