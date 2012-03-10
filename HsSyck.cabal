@@ -1,5 +1,6 @@
 Name:                HsSyck
-Version:             0.44
+Version:             0.50
+Cabal-version:       >= 1.2.3
 Category:            Text, Pugs
 Synopsis:            Fast, lightweight YAML loader and dumper
 Description:         This is a simple YAML ('Yet Another Markup Language') processor,
@@ -13,25 +14,33 @@ Description:         This is a simple YAML ('Yet Another Markup Language') proce
 -- License is really "MIT", but Cabal doesn't have that constant yet
 License:             BSD3
 License-File:        LICENSE
-Homepage:            http://github.com/audreyt/HsSyck
 Author:              Audrey Tang
 Maintainer:          audreyt@audreyt.org
-Copyright:           Audrey Tang, Gaal Yahas, 2005-2009
+Copyright:           Audrey Tang, Gaal Yahas, 2005, 2006, 2007, 2008, 2009
 
-Exposed-modules:     Data.Yaml.Syck
-
-Build-Depends:       base, bytestring>=0.9.0.1
 Build-Type:          Simple
-Tested-With:         GHC==6.8.2, GHC==6.8.3, GHC==6.10.1
+Tested-With:         GHC==6.8.2, GHC==6.8.3, GHC==6.10.1, GHC==6.10.2
+Data-Files:          Changes
+Extra-Source-Files:  syck/syck.h syck/syck_st.h syck/gram.h syck/yamlbyte.h
 
-extensions:          ForeignFunctionInterface, MagicHash, RecursiveDo,
-                     DeriveDataTypeable, TypeSynonymInstances, PatternGuards
+Flag SybInBase
+    Description: syb was split from base >= 4
+    Default: False
 
-ghc-options:         -funbox-strict-fields
+Library
+    if flag(SybInBase)
+        Build-Depends: base>=3 && <4, bytestring>=0.9.0.1, utf8-string>=0.3
+    else
+        Build-Depends: base>=4 && <6, bytestring>=0.9.0.1, syb, utf8-string>=0.3
 
-data-files:          Changes
-c-sources:           syck/bytecode.c syck/emitter.c syck/gram.c syck/handler.c
-                     syck/implicit.c syck/node.c syck/syck.c syck/syck_st.c syck/token.c
-                     syck/yaml2byte.c
-extra-source-files:  syck/syck.h syck/syck_st.h syck/gram.h syck/yamlbyte.h
-include-dirs:        syck
+    exposed-modules: Data.Yaml.Syck
+
+    ghc-options: -funbox-strict-fields
+
+    extensions: ForeignFunctionInterface, MagicHash,
+                DeriveDataTypeable, TypeSynonymInstances, PatternGuards, RecursiveDo
+
+    c-sources: syck/bytecode.c syck/emitter.c syck/gram.c syck/handler.c
+               syck/implicit.c syck/node.c syck/syck.c syck/syck_st.c
+               syck/token.c syck/yaml2byte.c
+    include-dirs:        syck

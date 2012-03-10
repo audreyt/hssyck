@@ -1,3 +1,18 @@
+[Changes for 0.50 - 2011-03-19]
+
+* parseYaml and emitYaml now work with Unicode Strings.
+  Reported by: voker57
+
+[Changes for 0.45 - 2009-05-15]
+
+* Require Cabal 1.2.3+ to work with GHC 6.10 and above.
+* Change unsafe ByteString packing to safe packing to avoid memory corruption.
+  Contributed by: Nicolas Pouillard
+
+[Changes for 0.44 - 2008-06-21]
+
+* Tested against GHC-6.8.3; added the Pugs category; no functional changes.
+
 [Changes for 0.43 - 2008-06-21]
 
 * Properly documented the language extensions we use in the .cabal file.

@@ -24,8 +24,9 @@ import System.IO.Unsafe
 import GHC.Ptr (Ptr(..))
 import qualified Data.HashTable as Hash
 import qualified Data.ByteString.Char8 as Buf
+import Data.ByteString.UTF8 (fromString, toString)
 import Data.ByteString.Char8 (useAsCStringLen, useAsCString)
-import Data.ByteString.Unsafe (unsafePackCString, unsafePackCStringLen)
+import Data.ByteString (packCString, packCStringLen)
 
 type Buf        = Buf.ByteString
 type YamlTag    = Maybe Buf
@@ -146,7 +147,7 @@ emitYamlFile file node = do
 -- | Dump a YAML node into a regular Haskell string
 
 emitYaml :: YamlNode -> IO String
-emitYaml node = fmap unpackBuf (emitYamlBytes node)
+emitYaml node = fmap toString (emitYamlBytes node)
 
 markYamlNode :: (YamlNode -> IO SyckNodePtr) -> SyckEmitter -> YamlNode -> IO ()
 {-
@@ -168,7 +169,7 @@ markYamlNode freeze emitter node = do
 
 outputCallbackPS :: IORef [Buf] -> SyckEmitter -> CString -> CLong -> IO ()
 outputCallbackPS out emitter buf len = do
-    str <- unsafePackCStringLen (buf, fromEnum len)
+    str <- packCStringLen (buf, fromEnum len)
     str `seq` modifyIORef out (str:)
 
 outputCallback :: SyckEmitter -> CString -> CLong -> IO ()
@@ -217,7 +218,7 @@ withTag node def f = maybe (f def) (`useAsCString` f) (n_tag node)
 -- | Parse a regular Haskell string
 
 parseYaml :: String -> IO YamlNode
-parseYaml = (`withCString` parseYamlCStr)
+parseYaml = parseYamlBytes . fromString
 
 -- | Given a file name, parse contents of file
 
@@ -280,7 +281,6 @@ nodeCallback badancs parser syckNode = mdo
             Hash.update badancs (ptr `minusPtr` nullPtr) node
 
     symId   <- fmap fromIntegral (syck_add_sym parser nodePtr)
-
     return symId
 
 badAnchorHandlerCallback :: BadAnchorTable -> SyckBadAnchorHandler
@@ -349,7 +349,7 @@ syckNodeTag :: SyckNode -> IO (Maybe Buf)
 syckNodeTag syckNode = do
     tag <- #{peek SyckNode, type_id} syckNode
     if (tag == nullPtr) then (return Nothing) else do
-        p <- unsafePackCString tag
+        p <- packCString tag
         return $! case Buf.elemIndex '/' p of
             Just n -> let { pre = Buf.take n p; post = Buf.drop (n+1) p } in
                 Just $ Buf.concat [_tagLiteral, pre, _colonLiteral, post]
@@ -386,7 +386,7 @@ parseNode SyckSeq parser syckNode len nid = do
 parseNode SyckStr _ syckNode len nid = do
     tag   <- syckNodeTag syckNode
     cstr  <- syck_str_read syckNode
-    buf   <- unsafePackCStringLen (cstr, fromEnum len)
+    buf   <- packCStringLen (cstr, fromEnum len)
     let node = nilNode{ n_elem = EStr buf, n_tag = tag, n_id = nid }
     if tag == Nothing && Buf.length buf == 1 && Buf.index buf 0 == '~'
         then do
