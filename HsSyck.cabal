@@ -41,4 +41,3 @@ Library
                 DeriveDataTypeable, TypeSynonymInstances, PatternGuards, RecursiveDo
 
     extra-libraries: syck
-    include-dirs:        syck
