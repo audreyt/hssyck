@@ -1,4 +1,4 @@
-#include "syck.h"
+#include <syck.h>
 
 module Data.Yaml.Syck (
     parseYaml, emitYaml,
