@@ -1,6 +1,6 @@
 Name:                HsSyck
 Version:             0.52
-Cabal-version:       >= 1.2.3
+Cabal-version:       >= 1.6
 Category:            Text, Pugs
 Synopsis:            Fast, lightweight YAML loader and dumper
 Description:         This is a simple YAML ('Yet Another Markup Language') processor,
