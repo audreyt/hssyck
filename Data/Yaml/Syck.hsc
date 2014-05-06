@@ -113,11 +113,6 @@ mkTagStrNode tag str = mkTagNode tag (EStr $! packBuf str)
 #enum CInt, , seq_none, seq_inline
 #enum CInt, , map_none, map_inline
 
-{-
-#def typedef void* EmitterExtras;
-type EmitterExtras = Ptr ()
--}
-
 -- | Dump a YAML node into a ByteString buffer (fast)
 
 emitYamlBytes :: YamlNode -> IO Buf
