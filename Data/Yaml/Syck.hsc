@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 #include "syck.h"
 
 module Data.Yaml.Syck (
@@ -39,7 +40,11 @@ data YamlAnchor
 type SYMID = CULong
 
 instance Data SYMID where
+#if MIN_VERSION_base(4, 2, 0)
+  toConstr x = mkIntegralConstr (mkIntType "Foreign.C.Types.CULong") (fromIntegral x)
+#else
   toConstr x = mkIntConstr (mkIntType "Foreign.C.Types.CULong") (fromIntegral x)
+#endif
   gunfold _ z c = case constrRep c of
                     (IntConstr x) -> z (fromIntegral x)
                     _ -> error "gunfold"

@@ -1,3 +1,7 @@
+[Changes fo 0.52 - 2014-05-06]
+
+* Add compatibility with base 4.7.0.0
+
 [Changes for 0.51 - 2013-11-08]
 
 * Port to hashtables package for compatibility with GHC 7.8.
@@ -42,4 +46,3 @@
 * First working Hackage release: Unbreak the build by adding
   missing extra-source-files.
   Requested by: Bryan O'Sullivan
-

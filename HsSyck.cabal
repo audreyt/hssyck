@@ -1,5 +1,5 @@
 Name:                HsSyck
-Version:             0.51
+Version:             0.52
 Cabal-version:       >= 1.2.3
 Category:            Text, Pugs
 Synopsis:            Fast, lightweight YAML loader and dumper
