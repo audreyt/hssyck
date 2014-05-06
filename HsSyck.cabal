@@ -30,7 +30,7 @@ Library
 
     ghc-options: -funbox-strict-fields
 
-    extensions: ForeignFunctionInterface, MagicHash,
+    extensions: ForeignFunctionInterface, MagicHash, CPP,
                 DeriveDataTypeable, TypeSynonymInstances, PatternGuards, RecursiveDo
 
     c-sources: syck/bytecode.c syck/emitter.c syck/gram.c syck/handler.c
