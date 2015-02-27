@@ -1,5 +1,5 @@
 Name:                HsSyck
-Version:             0.52
+Version:             0.53
 Cabal-version:       >= 1.6
 Category:            Text, Pugs
 Synopsis:            Fast, lightweight YAML loader and dumper
@@ -15,7 +15,7 @@ License:             MIT
 License-File:        LICENSE
 Author:              Audrey Tang
 Maintainer:          audreyt@audreyt.org
-Copyright:           Audrey Tang, Gaal Yahas, Oliver Charles, 2005, 2006, 2007, 2008, 2009, 2013, 2014
+Copyright:           Audrey Tang, Gaal Yahas, Oliver Charles, 2005, 2006, 2007, 2008, 2009, 2013, 2014, 2015
 Bug-Reports: https://github.com/audreyt/hssyck/issues
 
 Build-Type:          Simple
