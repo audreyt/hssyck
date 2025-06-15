@@ -141,7 +141,8 @@ typedef union YYSTYPE {
 # define YYSTYPE_IS_TRIVIAL 1
 #endif
 
-
+/* Forward declaration for sycklex */
+int sycklex( YYSTYPE *, void * );
 
 /* Copy the second part of user declarations.  */
 
