@@ -1,6 +1,6 @@
 Name:                HsSyck
 Version:             0.54
-Cabal-version:       >= 1.6
+Cabal-version:       >= 1.10
 Category:            Text, Pugs
 Synopsis:            Fast, lightweight YAML loader and dumper
 Description:         This is a simple YAML ('Yet Another Markup Language') processor,
@@ -28,15 +28,17 @@ source-repository head
     location: http://github.com/audreyt/hssyck
 
 Library
-    Build-Depends: base>=4 && <6, bytestring>=0.9.0.1, syb, utf8-string>=0.3, hashtables
+    Default-language:    Haskell2010
+    Build-Depends: base>=4 && <6,
+                   bytestring>=0.9.0.1 && <0.12,
+                   syb<0.8,
+                   utf8-string>=0.3 && <1.1,
+                   hashtables<1.5
 
     exposed-modules: Data.Yaml.Syck
 
     ghc-options: -funbox-strict-fields -optc-Wno-int-conversion -optc-Wno-deprecated-non-prototype -optc-Wno-format
 
-
-    extensions: ForeignFunctionInterface, MagicHash, CPP,
-                DeriveDataTypeable, TypeSynonymInstances, PatternGuards, RecursiveDo
 
     c-sources: syck/bytecode.c syck/emitter.c syck/gram.c syck/handler.c
                syck/implicit.c syck/node.c syck/syck.c syck/syck_st.c

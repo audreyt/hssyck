@@ -1,4 +1,5 @@
-{-# LANGUAGE CPP #-}
+{-# LANGUAGE ForeignFunctionInterface, MagicHash, CPP, DeriveDataTypeable, TypeSynonymInstances, PatternGuards, RecursiveDo #-}
+
 #include "syck.h"
 
 module Data.Yaml.Syck (
@@ -160,10 +161,10 @@ markYamlNode freeze emitter node = do
     nodePtr <- freeze node
     rv      <- syck_emitter_mark_node emitter nodePtr
     if rv == 0 then return () else do
-    case n_elem node of
-        EMap xs  -> sequence_ [ mark x >> mark y | (x, y) <- xs ]
-        ESeq xs  -> mapM_ mark xs
-        _        -> return ()
+        case n_elem node of
+            EMap xs  -> sequence_ [ mark x >> mark y | (x, y) <- xs ]
+            ESeq xs  -> mapM_ mark xs
+            _        -> return ()
     where
     mark = markYamlNode freeze emitter
 
@@ -243,10 +244,10 @@ parseYamlCStr cstr = do
         syck_parser_taguri_expansion parser 0
         symId <- syck_parse parser
         if symId /= 0 then readNode parser symId else do
-        rv <- readIORef err
-        case rv of
-            Nothing     -> return nilNode
-            Just e      -> fail e
+            rv <- readIORef err
+            case rv of
+                Nothing     -> return nilNode
+                Just e      -> fail e
 
 type HashTable k v = Hash.CuckooHashTable k v
 type BadAnchorTable = HashTable Int YamlNode
@@ -258,8 +259,8 @@ nodeCallback badancs parser syckNode = mdo
     kind    <- syckNodeKind syckNode
 
     let makeRegularNode = do
-        len     <- syckNodeLength kind syckNode
-        parseNode kind parser syckNode len symId
+            len     <- syckNodeLength kind syckNode
+            parseNode kind parser syckNode len symId
 
     node    <- case kind of
         SyckMap -> do
