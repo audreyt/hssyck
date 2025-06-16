@@ -1,3 +1,7 @@
+[Changes for 0.54 - 2022-06-16]
+
+* Fix compilation for GCC 14 (@ocharles).
+
 [Changes for 0.53 - 2015-02-27]
 
 * Change Cabal license field to say MIT.
