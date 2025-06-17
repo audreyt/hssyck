@@ -37,7 +37,7 @@ Library
 
     exposed-modules: Data.Yaml.Syck
 
-    ghc-options: -funbox-strict-fields -optc-Wno-int-conversion -optc-Wno-deprecated-non-prototype -optc-Wno-format
+    ghc-options: -funbox-strict-fields -optc-Wno-int-conversion -optc-Wno-deprecated-non-prototype -optc-Wno-format -optc-Wno-format-security
 
 
     c-sources: syck/bytecode.c syck/emitter.c syck/gram.c syck/handler.c
