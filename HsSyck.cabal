@@ -30,7 +30,7 @@ source-repository head
 Library
     Default-language:    Haskell2010
     Build-Depends: base>=4 && <6,
-                   bytestring>=0.9.0.1 && <0.12,
+                   bytestring>=0.9.0.1 && <0.13,
                    syb<0.8,
                    utf8-string>=0.3 && <1.1,
                    hashtables<1.5
